@@ -6,10 +6,11 @@ if(!isset($_SESSION["user_id"])){
     exit();
 }
 
-if(isset($_POST["title"]) && !empty(trim($_POST["title"]))) {
-    $desc = isset($_POST["description"]) ? $_POST["description"] : "";
+if(isset($_POST["title"]) && !empty($_POST["title"])) {
+    $title=htmlentities(trim($_post["title"])) ;
+    $description = isset($_POST["description"]) ? $_POST["description"] : "";
     if(function_exists('ajouter-recette')) {
-        $result = add_recipe($_POST["title"], $desc); // adapter le nom de la fonction avec le crud
+        $result = add_recipe($title, $description); // adapter le nom de la fonction avec le crud
         if ($result !== null) {
             header("Location: index.php?success=1");
             exit();
@@ -28,10 +29,10 @@ if(isset($_POST["title"]) && !empty(trim($_POST["title"]))) {
 </head>
 <body>
     <h1>Ajouter une recette</h1>
-    <a href="index.php" class="add-recipe">&larr; Retour à la liste des recettes</a>
-    <form action="" method="POST">
+    <a href="index.php">&larr; Retour à la liste des recettes</a>
+    <form action="add_recipe.php" method="POST">
         <input type="text" name="title" placeholder="Titre de la recette ..." required>
-        <textarea name="recipe" placeholder="Ingrédients et recette ..." rows="4"></textarea>
+        <textarea name="recipe" placeholder="Ingrédients et recette ..." required></textarea>
         <button>Ajouter</button>
     </form>
     

@@ -2,7 +2,7 @@
 
 session_start();
 if(!isset($_SESSION["user_id"])){
-    header("Location: login.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -21,7 +21,7 @@ if(isset($_GET["id"])) {
 
 if(isset($_POST["title"]) && isset($_POST["description"]) && !$isError) {
     $database = connect_database();
-    $stmt = $database->prepare("UPDATE recette SET title = ?, description = ? WHERE id = ? AND user_id = ?");
+    $stmt = $database->prepare("UPDATE recette SET title = ?, recipedesc = ? WHERE id = ? AND user_id = ?"); // adapter au nom de la table
     $stmt->execute([
         $_POST["title"],
         $_POST["description"],
